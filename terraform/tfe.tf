@@ -10,6 +10,13 @@ data "aws_secretsmanager_secret_version" "tfe_token_secret" {
   provider  = aws.aft-mgt
 }
 
+output "tfc_token" {
+  value = data.aws_secretsmanager_secret_version.tfe_token_secret.secret_string
+}
+output "tfc_org" {
+  value = data.aws_secretsmanager_secret_version.tfe_application_org.secret_string
+}
+
 # Retrieve the Application organization name from AWS Secrets Manager secret
 data "aws_secretsmanager_secret_version" "tfe_application_org" {
   secret_id = "arn:aws:secretsmanager:us-east-1:707376931149:secret:tfc/app_org-lVLAMl"
