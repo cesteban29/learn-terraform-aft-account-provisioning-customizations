@@ -1,17 +1,17 @@
 # Configure the Terraform Cloud / Enterprise provider
 provider "tfe" {
   hostname = "app.terraform.io"
-  token    = data.aws_secretsmanager_secret_version.tfe_token_secret.secret_string
+  token    = data.aws_secretsmanager_secret.tfe_token_secret.secret_string
 }
 
 # Retrieve the Terraform Cloud token from AWS Secrets Manager secret
-data "aws_secretsmanager_secret_version" "tfe_token_secret" {
+data "aws_secretsmanager_secret" "tfe_token_secret" {
   secret_id = "tfc/token"
   provider  = aws.aft-mgt
 }
 
 # Retrieve the Application organization name from AWS Secrets Manager secret
-data "aws_secretsmanager_secret_version" "tfe_application_org" {
+data "aws_secretsmanager_secret" "tfe_application_org" {
   secret_id = "tfc/app_org"
   provider  = aws.aft-mgt
 }
