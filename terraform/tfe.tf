@@ -18,7 +18,8 @@ data "aws_secretsmanager_secret_version" "tfe_application_org" {
 
 # Retrieve the Application organization data source
 data "tfe_organization" "app_org" {
-  name = data.aws_secretsmanager_secret_version.tfe_application_org.secret_string
+  #name = data.aws_secretsmanager_secret_version.tfe_application_org.secret_string
+  name = "Round-Table-Demos"
 }
 
 # Set the application workspace name
