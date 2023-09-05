@@ -12,9 +12,11 @@ data "aws_secretsmanager_secret_version" "tfe_token_secret" {
 
 output "tfc_token" {
   value = data.aws_secretsmanager_secret_version.tfe_token_secret.secret_string
+  sensitive=true
 }
 output "tfc_org" {
   value = data.aws_secretsmanager_secret_version.tfe_application_org.secret_string
+  sensitive=true
 }
 
 # Retrieve the Application organization name from AWS Secrets Manager secret
