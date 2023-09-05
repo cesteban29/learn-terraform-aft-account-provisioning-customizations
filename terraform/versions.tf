@@ -6,5 +6,8 @@ terraform {
       source  = "hashicorp/aws"
       version = ">= 3.15"
     }
+    tfe = {
+      version = "~> 0.48.0"
+    }
   }
 }
