@@ -1,13 +1,11 @@
 # Configure the Terraform Cloud / Enterprise provider
 provider "tfe" {
   hostname = "app.terraform.io"
-  #token    = data.aws_secretsmanager_secret_version.tfe_token_secret.secret_string
-  token = "cPb8CoTJZGgnfA.atlasv1.StUUqnEVbRQ1xuJCPTCGKza4Oc1URhtHeBYb6NgSVy2eIY2NLVyOHfVMe0ZeEwRjpCE"
+  token    = jsondecode(data.aws_secretsmanager_secret_version.tfe_token_secret.secret_string)["tfc/token"]
 }
-
 # Retrieve the Terraform Cloud token from AWS Secrets Manager secret
 data "aws_secretsmanager_secret_version" "tfe_token_secret" {
-  secret_id = "arn:aws:secretsmanager:us-east-1:707376931149:secret:tfc/token-q5nhpy"
+  secret_id = "tfc/token"
   provider  = aws.aft-mgt
 }
 
@@ -22,14 +20,14 @@ output "tfc_org" {
 
 # Retrieve the Application organization name from AWS Secrets Manager secret
 data "aws_secretsmanager_secret_version" "tfe_application_org" {
-  secret_id = "arn:aws:secretsmanager:us-east-1:707376931149:secret:tfc/app_org-lVLAMl"
+  secret_id = "tfc/app_org"
   provider  = aws.aft-mgt
 }
 
 # Retrieve the Application organization data source
 data "tfe_organization" "app_org" {
-  #name = data.aws_secretsmanager_secret_version.tfe_application_org.secret_string
-  name = "Round-Table-Demos"
+  name = data.aws_secretsmanager_secret_version.tfe_application_org.secret_string
+  #name = "Round-Table-Demos"
 }
 
 # Set the application workspace name
